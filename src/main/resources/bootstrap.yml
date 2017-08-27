@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: admin-monitor-service
+
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${random.string}

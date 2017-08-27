@@ -1,0 +1,29 @@
+spring:
+  boot:
+    admin:
+      url: http://localhost:8080
+      username: "${security.user.name}"
+      password: "${security.user.password}"
+      routes:
+        endpoints: metrics,info,trace,logfile,loggers,hystrix.stream
+    
+security:
+  user:
+    name: admin
+    password: admin
+      
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+    healthCheckUrlPath: ${management.contextPath}/health
+    metadata-map:
+      management.context-path: "${management.contextPath}"
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka
+      
+management:
+  contextPath: /mgmt
+  security:
+    enabled: false

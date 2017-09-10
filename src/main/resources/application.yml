@@ -1,10 +1,10 @@
 server:
-  port: 8888
+  port: 8080
 
 spring:
   boot:
     admin:
-      url: http://localhost:8888
+      url: http://localhost:8080
       username: "${security.user.name}"
       password: "${security.user.password}"
       routes:
@@ -30,3 +30,10 @@ management:
   contextPath: /mgmt
   security:
     enabled: false
+    
+---
+   
+spring:
+  profiles: dev
+server:
+  port: 0

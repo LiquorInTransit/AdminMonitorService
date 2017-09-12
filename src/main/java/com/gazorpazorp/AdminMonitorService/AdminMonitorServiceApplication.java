@@ -1,32 +1,16 @@
 package com.gazorpazorp.AdminMonitorService;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.util.WebUtils;
 
-import com.fasterxml.jackson.core.Base64Variants;
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
+import com.netflix.appinfo.AmazonInfo;
 
 import de.codecentric.boot.admin.config.EnableAdminServer;
 
@@ -61,4 +45,16 @@ public class AdminMonitorServiceApplication {
 			http.httpBasic();
 		}
 	}
+	
+	@Bean
+	public EurekaInstanceConfigBean eurekaInstanceConfigBean(InetUtils utils) 
+	{
+		EurekaInstanceConfigBean instance = new EurekaInstanceConfigBean(utils);
+		AmazonInfo info = AmazonInfo.Builder.newBuilder().autoBuild("eureka");
+		instance.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
+		instance.setIpAddress(info.get(AmazonInfo.MetaDataKey.publicIpv4));
+		instance.setDataCenterInfo(info);
+		instance.setNonSecurePort(8080);
+		return instance;
+	}	
 }

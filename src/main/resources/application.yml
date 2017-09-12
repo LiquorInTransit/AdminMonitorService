@@ -17,14 +17,12 @@ security:
       
 eureka:
   instance:
-    hostname: localhost
-    port: 8761
     healthCheckUrlPath: ${management.contextPath}/health
     metadata-map:
       management.context-path: "${management.contextPath}"
   client:
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka
+      defaultZone: http://ec2-13-59-80-6.us-east-2.compute.amazonaws.com:8761/eureka/
       
 management:
   contextPath: /mgmt
@@ -37,3 +35,14 @@ spring:
   profiles: dev
 server:
   port: 0
+  
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+    healthCheckUrlPath: ${management.contextPath}/health
+    metadata-map:
+      management.context-path: "${management.contextPath}"
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka

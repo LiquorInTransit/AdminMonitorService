@@ -22,7 +22,7 @@ eureka:
       management.context-path: "${management.contextPath}"
   client:
     serviceUrl:
-      defaultZone: http://ec2-13-59-80-6.us-east-2.compute.amazonaws.com:8761/eureka/
+      defaultZone: http://admin:admin@ec2-13-59-80-6.us-east-2.compute.amazonaws.com:8761/eureka/
       
 management:
   contextPath: /mgmt

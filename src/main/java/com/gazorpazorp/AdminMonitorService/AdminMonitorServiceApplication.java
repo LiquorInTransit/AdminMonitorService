@@ -7,6 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -47,6 +48,7 @@ public class AdminMonitorServiceApplication {
 	}
 	
 	@Bean
+	@Profile("!dev")
 	public EurekaInstanceConfigBean eurekaInstanceConfigBean(InetUtils utils) 
 	{
 		EurekaInstanceConfigBean instance = new EurekaInstanceConfigBean(utils);

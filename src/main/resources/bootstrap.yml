@@ -1,7 +1,18 @@
 spring:
   application:
     name: admin-monitor-service
+  cloud:
+    config:
+      uri: http://ec2-18-221-58-46.us-east-2.compute.amazonaws.com:8080
 
 eureka:
   instance:
     instanceId: ${spring.application.name}:${random.string}
+    
+---
+
+spring:
+  profiles: dev
+  cloud:
+    config:
+      uri: http://localhost:8888

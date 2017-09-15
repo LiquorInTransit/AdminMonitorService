@@ -3,6 +3,15 @@ server:
   
 logging:
   file: log.log
+  level:
+    com:
+      netflix:
+        discovery:
+          internal:
+            util:
+              Archaius1Utils: ERROR
+          endpoint:
+            EndpointUtils: ERROR
 
 spring:
   boot:
@@ -11,7 +20,7 @@ spring:
       username: "${security.user.name}"
       password: "${security.user.password}"
       routes:
-        endpoints: metrics,info,trace,logfile,loggers,hystrix.stream
+        endpoints: metrics,info,trace,logfile,loggers,hystrix.stream,mappings
     
 security:
   user:

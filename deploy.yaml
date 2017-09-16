@@ -17,7 +17,7 @@
         
     - name: Setup security group
       ec2_group:
-        name: admin-http-server
+        name: uaa-http-server
         description: Security rules for HTTP Server
         region: "{{ region }}"
         rules_egress:
@@ -34,7 +34,7 @@
     - name: Provision an instance
       ec2:
         key_name: "{{ keypair_name }}"
-        group: admin-http-server
+        group: uaa-http-server
         instance_type: "{{ instance_type }}"
         image: "{{ image_name }}"
         wait: true

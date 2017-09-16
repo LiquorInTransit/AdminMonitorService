@@ -17,29 +17,24 @@
         
     - name: Setup security group
       ec2_group:
-        name: http-server
+        name: admin-http-server
         description: Security rules for HTTP Server
         region: "{{ region }}"
         rules_egress:
            - proto: tcp
-             from_port: 0
-             to_port: 65535
+             ports: 0-65535
              cidr_ip: 0.0.0.0/0
         rules:
            - proto: tcp
-             from_port: 8080
-             to_port: 8080
-             cidr_ip: 0.0.0.0/0
-           
-           - proto: tcp
-             from_port: 22
-             to_port: 22
+             ports:
+               - 8080
+               - 22
              cidr_ip: 0.0.0.0/0
 
     - name: Provision an instance
       ec2:
         key_name: "{{ keypair_name }}"
-        group: http-server
+        group: admin-http-server
         instance_type: "{{ instance_type }}"
         image: "{{ image_name }}"
         wait: true
